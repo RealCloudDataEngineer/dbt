@@ -18,6 +18,7 @@ test-paths: ["tests"]
 seed-paths: ["seeds"]
 macro-paths: ["macros"]
 snapshot-paths: ["snapshots"]
+asset-paths: ["assets"]
 
 target-path: "target"  # directory which will store compiled SQL files
 clean-targets:         # directories to be removed by `dbt clean`
@@ -38,5 +39,7 @@ clean-targets:         # directories to be removed by `dbt clean`
 models:
   jaffle_shop:
     +materialized: table
+    +post-hook:
+      - "GRANT SELECT ON {{ this }} TO ROLE REPORTER"
     src:
       +materialized: ephemeral
