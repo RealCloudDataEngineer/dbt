@@ -39,5 +39,7 @@ clean-targets:         # directories to be removed by `dbt clean`
 models:
   jaffle_shop:
     +materialized: table
+    +post-hook:
+      - "GRANT SELECT ON {{ this }} TO ROLE REPORTER"
     src:
       +materialized: ephemeral
